@@ -4,7 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
+import com.champ.pvpaddon.Addon;
 import com.champ.pvpaddon.AddonPlugin;
 
 
@@ -15,23 +17,40 @@ public class InvClick implements Listener {
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		
+		ItemStack clickedItem = event.getCurrentItem();
+		
 		Player player = (Player) event.getWhoClicked();
 		
-		if(event.getClickedInventory().getTitle() == "Shop"){
-			if(event.getClickedInventory().getItem(10) != null){
-				if(event.getClickedInventory().getItem(10).getItemMeta().getDisplayName() == AddonPlugin.getInstance().getLangFile().get("stick_wand_name")){
+		if(event.getClickedInventory().getName() == "Shop"){
+			if(clickedItem.getItemMeta().getDisplayName() == AddonPlugin.getInstance().getLangFile().get("stick_wand_name")){
+				if(player.getExpToLevel() < AddonPlugin.getInstance().getConfig().getInt("stick_wand_cost")){
 					event.setCancelled(true);
+					player.sendMessage(AddonPlugin.getInstance().getLangFile().getString("not_enough_exp_message"));
 					
-					//TODO: Take away a cost
+				} else if (player.getExpToLevel() >= AddonPlugin.getInstance().getConfig().getInt("stick_wand_cost")){
+					event.setCancelled(true);
+					player.setTotalExperience(player.getExpToLevel() - AddonPlugin.getInstance().getConfig().getInt("stick_wand_cost"));
+					player.getInventory().addItem(Addon.getInstance().getStick());
+					
 				}
-			} else if (event.getClickedInventory().getItem(15) != null){
-				if (event.getClickedInventory().getItem(15).getItemMeta().getDisplayName() == AddonPlugin.getInstance().getLangFile().getString("blazerod_wand_name")){
+				
+				
+			} 
+			
+			if(clickedItem.getItemMeta().getDisplayName() == AddonPlugin.getInstance().getLangFile().get("blazerod_wand_name")){
+				if(player.getExpToLevel() < AddonPlugin.getInstance().getConfig().getInt("blazerod_wand_cost")){
 					event.setCancelled(true);
+					player.sendMessage(AddonPlugin.getInstance().getLangFile().getString("not_enough_exp_message"));
 					
-					//TODO: Take away a cost
+				} else if (player.getExpToLevel() >= AddonPlugin.getInstance().getConfig().getInt("blazerod_wand_cost")){
+					event.setCancelled(true);
+					player.setTotalExperience(player.getExpToLevel() - AddonPlugin.getInstance().getConfig().getInt("blazerod_wand_cost"));
+					player.getInventory().addItem(Addon.getInstance().getBlazerod());
+					
 				}
 			}
-		}
+				
+		}   
 		
 	}
 

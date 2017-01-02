@@ -1,0 +1,8 @@
+name: Pumpkin PvP Addon
+main: com.champ.pvpaddon.AddonPlugin
+verison: 0.1
+author: Champ
+description: Adds unique features to PvP.
+commands:
+  wshop:
+  wnpc:

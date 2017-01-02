@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.champ.pvpaddon.commands.NPC;
+import com.champ.pvpaddon.commands.Shop;
 import com.champ.pvpaddon.events.InvClick;
 import com.champ.pvpaddon.pvp.CastSpell;
 
@@ -29,6 +31,9 @@ public class AddonPlugin extends JavaPlugin {
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new CastSpell(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InvClick(), this);
+		
+		getCommand("wshop").setExecutor(new Shop());
+		getCommand("wnpc").setExecutor(new NPC());
 		
 		setupConfig();
 		setupLangFile();

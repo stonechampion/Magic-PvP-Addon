@@ -13,20 +13,46 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Addon {
 	
-	Inventory inv;
+	public static Addon instance;
 	
+	Inventory inv;
+	ItemStack stick;
+	ItemStack blazerod;
+	
+	public Addon(){
+		instance = this;
+	}
+	
+	public static Addon getInstance(){
+		return instance;
+		
+	}
+	
+	public ItemStack getStick() {
+		return stick;
+	}
+
+	public ItemStack getBlazerod() {
+		return blazerod;
+	}
+	
+
+	public Inventory getInv() {
+		return inv;
+	}
+
 	public void openShopInv(){
 		
 		
 		
-		ItemStack stick = new ItemStack(Material.STICK);
+	    stick = new ItemStack(Material.STICK);
 		ItemMeta im = stick.getItemMeta();
 		im.setDisplayName(ChatColor.translateAlternateColorCodes('&', AddonPlugin.getInstance().getLangFile().getString("stick_wand_name")));
 		List<String> lore = new ArrayList<String>();
 		lore.add(AddonPlugin.getInstance().getConfig().getString("stick_wand_cost"));
 		im.setLore(lore);
 		
-		ItemStack blazerod = new ItemStack(Material.BLAZE_ROD);
+	    blazerod = new ItemStack(Material.BLAZE_ROD);
 		ItemMeta bim = blazerod.getItemMeta();
 		bim.setDisplayName(ChatColor.translateAlternateColorCodes('&', AddonPlugin.getInstance().getLangFile().getString("blazerod_wand_name")));
 		List<String> cost = new ArrayList<String>();

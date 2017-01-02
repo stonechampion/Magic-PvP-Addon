@@ -1,5 +1,9 @@
 wand_cooldown_message: &rYou cannot cast a spell at this time.
 
+not_enough_exp_message: &rYou do not have enough xp to purchase this item.
+
+no_permission: &rYou do not have authority to use that command!
+
 stick_wand_name: &rStick Wand
 
 blazerod_wand_name: &rBlaze Wand
